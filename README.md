@@ -36,3 +36,25 @@ La entrega consistirá en un único fichero comprimido que debe contener lo sigu
 * Si las plataformas utilizadas permiten su exportación, se pueden aportar los ficheros fuente de las mismas, pero, en 
   todo caso, es necesario incluir o capturas de pantalla o enlaces en la memoria que permitan evidenciar el trabajo sin 
   necesidad de instalar la plataforma utilizada.
+
+
+### Inicializar proyecto
+Primero installa `postgresql`. Puedes usar el customizer para tal fin:
+```shell
+git clone https://github.com/AleixMT/Linux-Auto-Customizer
+cd Linux-Auto-Customizer
+sudo bash src/core/install.sh -v -o psql 
+```
+
+También puedes instalar `docker`, pero es mejor usar el gestor de paquetes. En Ubuntu Linux:
+````shell
+sudo apt install -y docker containerd docker-compose
+````
+
+#### Recrear base de datos de `sqlite` en saltcorn
+```shell
+mkdir saltcorn_db 
+sudo docker run -it -v ./saltcorn_db:/db -e SQLITE_FILEPATH=/db/db.sqlite -e SALTCORN_SESSION_SECRET=s3cr3t saltcorn/saltcorn:latest reset-schema
+```
+
+Con este comando crearemos la base de datos en `./saltcorn_db/db.sqlite`

@@ -3,14 +3,18 @@ version: '3'
 services:
   saltcorn:
     image: saltcorn/saltcorn:latest
-    container_name: saltcorn_instance
+    command: serve
+    container_name: saltcorn
     ports:
-      - "80:80"
+      - "3000:3000"
     environment:
-      - SITENAME=MySaltcornInstance
-      - MYSQL_DATABASE=<database_name>
-      - MYSQL_USER=<database_user>
-      - MYSQL_PASSWORD=<database_password>
-      - MYSQL_ROOT_PASSWORD=<database_root_password>
+      - SQLITE_FILEPATH=/db/db.sqlite
+      - SALTCORN_SESSION_SECRET=s3cr3t
+      #- DATABASE_URL=postgresql://127.0.0.1:5432/saltcorn
+      #- PGUSER=aleixmt
+      #- PGHOST=localhost
+      #- PGPORT=5432
+      #- PGPASSWORD=chemistry
+      #- PGDATABASE=saltcorn
     volumes:
       - ./saltcorn_db:/db
